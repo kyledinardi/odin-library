@@ -1,0 +1,23 @@
+:root {
+  background-color: #533A71;
+  color: white;
+}
+
+form {
+  display: grid;
+  width: 500px;
+  margin: auto;
+}
+
+input {
+  margin-bottom: 10px;
+  background-color: #AC92C8;
+  border: 1px solid black;
+}
+
+.add-book {
+  background-color: #AC92C8;
+  justify-self: center;
+  padding: 10px;
+  border-radius: 10px;
+}
