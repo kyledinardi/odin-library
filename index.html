@@ -14,10 +14,16 @@
     <label for="author">Author</label>
     <input type="text" name="author" id="author" required>
     <label for="pages">Pages</label>
-    <input type="text" name="pages" id="pages" required>
-    <label for="read">Read</label>
-    <input type="text" name="read" id="read" required>
-    <button type="button" class="add-book">Add Book</button>
+    <input 
+      type="tel" 
+      name="pages" 
+      id="pages" 
+      required 
+      pattern="\d+" 
+      title="Must be a number">
+    <label for="read">Have you read this book?</label>
+    <input type="checkbox" name="read" id="read">
+    <button type="submit" class="add-book">Add Book</button>
   </form>
 </body>
 </html>
