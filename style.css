@@ -4,8 +4,16 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.library {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
 h1 {
   text-align: center;
+  margin-top: 50px;
 }
 
 table {
@@ -14,7 +22,7 @@ table {
   border: 2px solid silver;
 }
 
-tr:first-child {
+[scope="col"] {
   background-color: #4a3465;
 }
 
@@ -24,7 +32,19 @@ td, th {
   text-align: center;
 }
 
-#new-book {
+dialog {
+  background-color: #4a3465;
+  color: white;
+  border: black 1px solid;
+  border-radius: 20px;
+}
+
+::backdrop {
+  background-color: black;
+  opacity: .5;
+}
+
+form {
   display: grid;
   width: 500px;
   margin: auto;
@@ -55,10 +75,21 @@ input[type=checkbox] {
   justify-self: center;
 }
 
-button[type=submit] {
-  background-color: #AC92C8;
+form div {
+  grid-column: 1 / 3;
   justify-self: center;
+}
+
+button {
+  background-color: #AC92C8;
   padding: 10px;
   border-radius: 10px;
-  grid-column: 1 / 3;
+}
+
+form button {
+  margin: 10px 10px;
+}
+
+button.new-book {
+  font-size: 1.2em;
 }

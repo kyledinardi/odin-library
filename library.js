@@ -1,12 +1,26 @@
 const myLibrary = [];
-const input = document.querySelectorAll('input');
-const form = document.querySelector('#new-book');
-const table = document.querySelector('tbody')
+const inputs = document.querySelectorAll('input');
+const form = document.querySelector('form');
+const table = document.querySelector('tbody');
+const dialogBox = document.querySelector('dialog');
+const newBook = document.querySelector('.new-book');
+const confirmBtn = document.querySelector('#confirm');
+const cancelBtn = document.querySelector('#cancel');
+
+newBook.addEventListener('click', () => {
+  dialogBox.showModal()
+});
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   addBookToLibrary();
   buildTable();
+  dialogBox.close();
 });
+
+cancelBtn.addEventListener('click', () => {
+  dialogBox.close();
+})
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -16,15 +30,15 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-  let title = input[0].value;
-  let author = input[1].value;
-  let pages = input[2].value;
-  let read = input[3].checked;
+  let title = inputs[0].value;
+  let author = inputs[1].value;
+  let pages = inputs[2].value;
+  let read = inputs[3].checked;
   myLibrary.push(new Book(title, author, pages, read));
   for(let i = 0; i < 3; i++) {
-    input[i].value = '';
+    inputs[i].value = '';
   }
-  input[3].checked = false;
+  inputs[3].checked = false;
 }
 
 function buildTable() {
@@ -32,17 +46,39 @@ function buildTable() {
   previousRows.forEach((e) => e.remove());
   myLibrary.forEach((e) => {
     const newRow = document.createElement('tr');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('data-index', myLibrary.indexOf(e));
+    deleteBtn.textContent = 'Delete';
     let cells = [];
-    for(let i = 0; i < 4; i++) {
+    newRow.setAttribute('data-index', myLibrary.indexOf(e));
+    for(let i = 0; i < 5; i++) {
       cells[i] =  document.createElement('td');
     }
     cells[0].textContent = e.title;
     cells[1].textContent = e.author;
     cells[2].textContent = e.pages;
     cells[3].textContent = e.read ? 'Yes' : 'No';
-    for(let i = 0; i < 4; i++) {
+    cells[4].appendChild(deleteBtn);
+    for(let i = 0; i < 5; i++) {
       newRow.appendChild(cells[i]);
     }
     table.appendChild(newRow);
+  });
+  handleDeleteBtns();
+}
+
+function handleDeleteBtns() {
+  let deleteBtns = document.querySelectorAll('button[data-index]');
+  let rows = document.querySelectorAll('tbody tr');
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      rows.forEach((row) => {
+        let i = row.getAttribute('data-index');
+        if(i === e.target.getAttribute('data-index')) {
+          myLibrary.splice(i, 1);
+          row.remove();
+        }
+      });
+    });
   });
 }
