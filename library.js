@@ -29,6 +29,14 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+Book.prototype.toggleRead = function () {
+  if(this.read){
+    this.read = false;
+  } else{
+    this.read = true
+  }
+}
+
 function addBookToLibrary() {
   let title = inputs[0].value;
   let author = inputs[1].value;
@@ -47,9 +55,11 @@ function buildTable() {
   myLibrary.forEach((e) => {
     const newRow = document.createElement('tr');
     const deleteBtn = document.createElement('button');
+    const readBox = createReadCheckbox(e.read);
     let cells = [];
     newRow.setAttribute('data-index', myLibrary.indexOf(e));
     deleteBtn.setAttribute('data-index', myLibrary.indexOf(e));
+    readBox.setAttribute('data-index', myLibrary.indexOf(e));
     deleteBtn.textContent = 'Delete';
     for(let i = 0; i < 5; i++) {
       cells[i] =  document.createElement('td');
@@ -57,7 +67,7 @@ function buildTable() {
     cells[0].textContent = e.title;
     cells[1].textContent = e.author;
     cells[2].textContent = e.pages;
-    cells[3].appendChild(createReadCheckbox(e.read));
+    cells[3].appendChild(readBox);
     cells[4].appendChild(deleteBtn);
     for(let i = 0; i < 5; i++) {
       newRow.appendChild(cells[i]);
@@ -65,6 +75,7 @@ function buildTable() {
     table.appendChild(newRow);
   });
   handleDeleteBtns();
+  handleReadToggle();
 }
 
 function handleDeleteBtns() {
@@ -91,4 +102,14 @@ function createReadCheckbox(read) {
     readBox.setAttribute('checked', '');
   }
   return readBox;
+}
+
+function handleReadToggle() {
+  let readBoxes = document.querySelectorAll('input[data-index]');
+  readBoxes.forEach((readBox) => {
+    readBox.addEventListener('change', (e) => {
+      let book = myLibrary[e.target.getAttribute('data-index')];
+      book.toggleRead();
+    });
+  });
 }

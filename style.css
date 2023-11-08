@@ -93,3 +93,7 @@ form button {
 button.new-book {
   font-size: 1.2em;
 }
+
+input[data-index] {
+  transform: scale(2);
+}
