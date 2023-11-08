@@ -47,17 +47,17 @@ function buildTable() {
   myLibrary.forEach((e) => {
     const newRow = document.createElement('tr');
     const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('data-index', myLibrary.indexOf(e));
-    deleteBtn.textContent = 'Delete';
     let cells = [];
     newRow.setAttribute('data-index', myLibrary.indexOf(e));
+    deleteBtn.setAttribute('data-index', myLibrary.indexOf(e));
+    deleteBtn.textContent = 'Delete';
     for(let i = 0; i < 5; i++) {
       cells[i] =  document.createElement('td');
     }
     cells[0].textContent = e.title;
     cells[1].textContent = e.author;
     cells[2].textContent = e.pages;
-    cells[3].textContent = e.read ? 'Yes' : 'No';
+    cells[3].appendChild(createReadCheckbox(e.read));
     cells[4].appendChild(deleteBtn);
     for(let i = 0; i < 5; i++) {
       newRow.appendChild(cells[i]);
@@ -79,6 +79,16 @@ function handleDeleteBtns() {
           row.remove();
         }
       });
+      buildTable();
     });
   });
+}
+
+function createReadCheckbox(read) {
+  const readBox = document.createElement('input');
+  readBox.setAttribute('type', 'checkbox');
+  if(read){
+    readBox.setAttribute('checked', '');
+  }
+  return readBox;
 }
