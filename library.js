@@ -22,18 +22,20 @@ cancelBtn.addEventListener('click', () => {
   dialogBox.close();
 })
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-Book.prototype.toggleRead = function () {
-  if(this.read){
-    this.read = false;
-  } else{
-    this.read = true
+  toggleRead() {
+    if(this.read){
+      this.read = false;
+    } else{
+      this.read = true
+    }
   }
 }
 
